@@ -10,6 +10,9 @@ Methods in Ecology and Evolution
 ```
 The code was modified to enable training animal2vec on variable sample rate datasets and test its performance against training on upsampled datasets. This repository also contains the scripts that were used to curate and process the datasets used in the paper, as well as scripts for evaluating and visualizing animal2vecs performance.
 
+## Dataset curation
+
+
 
 ## Installation
 ### Install Dependencies
