@@ -10,9 +10,6 @@ Methods in Ecology and Evolution
 ```
 The code was modified to enable training animal2vec on variable sample rate datasets and test its performance against training on upsampled datasets. This repository also contains the scripts that were used to curate and process the datasets used in the paper, as well as scripts for evaluating and visualizing animal2vecs performance.
 
-## Dataset curation
-
-
 
 ## Installation
 ### Install Dependencies
@@ -43,3 +40,23 @@ Then some manual installation is needed:
     - ```pip uninstall nvidia_cublas_cu11```
 
 **Now you are good to go and you can use the repo.**
+
+## [Dataset upsampling](https://github.com/mariusfaiss/animal2vec_sr_invariant/tree/main/scripts/upsample_dataset)
+This folder contains the scripts that were used to upsample the [source dataset](https://doi.org/10.17617/3.DOHL0O) to 48 kHz. 
+
+### [upsample_dataset.py](https://github.com/mariusfaiss/animal2vec_sr_invariant/blob/main/scripts/upsample_dataset/upsample_dataset.py)
+This script upsamples the audio files to a shared sample rate. It's input arguments are:
+- --input_dir: The folder containing the audio files in the source dataset: SR_MeerKAT_XCbirds_10s/wav
+- --output_dir: The directory holding the upsampled files
+
+## [upsample_lbl_files.py](https://github.com/mariusfaiss/animal2vec_sr_invariant/blob/main/scripts/upsample_dataset/upsample_lbl_files.py)
+This script updates the start and end audio frame values in the label files to match the upsampled resolution. It's input arguments are:
+- --base_folder: The base folder of the source dataset SR_MeerKAT_XCbirds_10s
+- --out_folder: The base folder of the upsampled dataset 48_MeerKAT_XCbirds_10s
+
+## [update_tsv_frames.py](https://github.com/mariusfaiss/animal2vec_sr_invariant/blob/main/scripts/upsample_dataset/update_tsv_frames.py)
+This script updates the manifest files. All file extensions are changed to .wav and the numbers of audio frames are updated to match the new sample rate. It's input arguments are:
+- --base_dir: The base folder of the source dataset SR_MeerKAT_XCbirds_10s
+- --out_dir: The base folder of the upsampled dataset 48_MeerKAT_XCbirds_10s
+
+
