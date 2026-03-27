@@ -8,7 +8,7 @@ Schäfer-Zimmermann, J. C., Demartsev, V., Averly, B., Dhanjal-Adams, K., Duteil
 animal2vec and MeerKAT: A self-supervised transformer for rare-event raw audio input and a large-scale reference dataset for bioacoustics
 Methods in Ecology and Evolution
 ```
-The code was modified to enable training animal2vec on variable sample rate datasets and test its performance against training on upsampled datasets. This repository also contains the scripts that were used to curate and process the datasets used in the paper, as well as scripts for evaluating and visualizing animal2vecs performance.
+The code was modified to enable training animal2vec on variable sample rate datasets and test its performance against training on upsampled datasets. This repository also contains the scripts that were used to curate and process the [dataset](https://doi.org/10.17617/3.DOHL0O) used in the paper, as well as scripts for evaluating and visualizing animal2vecs performance.
 
 
 ## Installation
