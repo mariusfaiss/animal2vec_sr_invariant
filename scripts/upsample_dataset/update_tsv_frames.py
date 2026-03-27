@@ -31,7 +31,7 @@ def get_frame_count(audio_path: Path) -> int:
 
 def process_tsv_file(tsv_path: Path, out_dir_path: Path):
     """
-    Processes a single TSV config file, updating the sample counts, base path, and extensions.
+    Processes a single TSV manifest file, updating the sample counts, base path, and extensions.
     Writes the updated TSV to out_dir_path.
 
     Args:
@@ -103,7 +103,7 @@ def process_tsv_file(tsv_path: Path, out_dir_path: Path):
 
                     except FileNotFoundError:
                         print(f"\nWarning: Audio file not found: {full_audio_path}")
-                        print("         Writing old sample count back to the config.")
+                        print("         Writing old sample count back to the manifest.")
                         writer.writerow([new_relative_path, old_samples_str])
                     except Exception as e:
                         print(f"\nWarning: Could not process audio file: {full_audio_path}")
@@ -115,7 +115,7 @@ def process_tsv_file(tsv_path: Path, out_dir_path: Path):
         print(f"Successfully created updated manifest at: {final_output_path}")
 
     except FileNotFoundError:
-        print(f"Error: Config file not found: {tsv_path}")
+        print(f"Error: Manifest file not found: {tsv_path}")
     except Exception as e:
         print(f"An unexpected error occurred while processing {tsv_path.name}: {e}")
         # clean up the temporary file if an error occurred
@@ -128,14 +128,14 @@ def main():
     Main function to parse arguments and find all .tsv files to process.
     """
     parser = argparse.ArgumentParser(
-        description="Update sample counts in TSV config files for audio resampled to 48kHz."
+        description="Update sample counts in TSV manifest files for audio resampled to 48kHz."
     )
     parser.add_argument(
-        "config_dir",
+        "base_dir",
         nargs='?',
         default="/home/jupyter-mfaiss/Datasets/SR_MeerKAT_XCbirds_10s",
         type=str,
-        help="The directory containing the original .tsv config files to update."
+        help="The directory containing the original .tsv manifest files to update."
     )
     parser.add_argument(
         "out_dir",
@@ -146,20 +146,20 @@ def main():
     )
     args = parser.parse_args()
 
-    config_dir_path = Path(args.config_dir)
+    base_dir_path = Path(args.base_dir)
     out_dir_path = Path(args.out_dir)
 
-    if not config_dir_path.is_dir():
-        print(f"Error: The input config directory does not exist: {config_dir_path}")
+    if not base_dir_path.is_dir():
+        print(f"Error: The input manifest directory does not exist: {base_dir_path}")
         sys.exit(1)
 
     # make sure output directory exists, create parents if needed
     out_dir_path.mkdir(parents=True, exist_ok=True)
 
-    tsv_files = sorted(list(config_dir_path.glob("*.tsv")))
+    tsv_files = sorted(list(base_dir_path.glob("*.tsv")))
 
     if not tsv_files:
-        print(f"No .tsv files found in directory: {config_dir_path}")
+        print(f"No .tsv files found in directory: {base_dir_path}")
         sys.exit(0)
 
     print(f"Found {len(tsv_files)} .tsv files to process.")
